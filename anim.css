@@ -1,0 +1,45 @@
+/* Оживление демо: проявления при прокрутке, вход первого экрана, до/после */
+/* Подключается поверх style-*.css, классы s-* не меняет */
+
+/* Вход первого экрана */
+@keyframes a-up { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: none; } }
+.s-hero .s-eyebrow, .s-hero h1, .s-hero .s-lead, .s-hero .s-ticks li,
+.s-hero .s-rating, .s-hero .s-hero__photo, .s-hero__widget {
+  animation: a-up .7s cubic-bezier(.22,.8,.32,1) both;
+}
+.s-hero .s-eyebrow { animation-delay: .05s; }
+.s-hero h1 { animation-delay: .15s; }
+.s-hero .s-lead { animation-delay: .28s; }
+.s-hero .s-ticks li:nth-child(1) { animation-delay: .4s; }
+.s-hero .s-ticks li:nth-child(2) { animation-delay: .5s; }
+.s-hero .s-ticks li:nth-child(3) { animation-delay: .6s; }
+.s-hero .s-rating { animation-delay: .7s; }
+.s-hero .s-hero__photo { animation-delay: .35s; }
+.s-hero__widget { animation-delay: .45s; }
+
+/* Проявление при прокрутке */
+.a-rv { opacity: 0; transform: translateY(26px); transition: opacity .7s ease, transform .7s cubic-bezier(.22,.8,.32,1); }
+.a-rv.a-in { opacity: 1; transform: none; }
+/* Фото чуть приближаются при появлении */
+.s-photos figure { transition: opacity .8s ease, transform .9s cubic-bezier(.22,.8,.32,1); }
+.s-photos figure img { transition: transform 1.2s cubic-bezier(.22,.8,.32,1); }
+.s-photos figure.a-rv img { transform: scale(1.06); }
+.s-photos figure.a-in img { transform: scale(1); }
+
+/* До/после */
+.a-ba { position: relative; overflow: hidden; border-radius: 14px; aspect-ratio: 1280/1049; touch-action: pan-y; cursor: ew-resize; --ba: 50%; }
+.a-ba img { display: block; width: 100%; height: 100%; object-fit: cover; user-select: none; -webkit-user-drag: none; pointer-events: none; }
+.a-ba__top { position: absolute; inset: 0; clip-path: inset(0 calc(100% - var(--ba)) 0 0); }
+.a-ba__bar { position: absolute; top: 0; bottom: 0; left: var(--ba); width: 2px; margin-left: -1px; background: rgba(255,255,255,.9); box-shadow: 0 0 12px rgba(0,0,0,.45); }
+.a-ba__knob { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 46px; height: 46px; border-radius: 50%; background: var(--c-accent, #f65a52); color: var(--c-accent-ink, #1c0605); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 17px; letter-spacing: 1px; box-shadow: 0 4px 14px rgba(0,0,0,.4); }
+.a-ba__tag { position: absolute; top: 12px; padding: 4px 12px; border-radius: 999px; background: rgba(10,12,16,.62); color: #f4f2ec; font: 600 12px/1.2 var(--f-text, system-ui); letter-spacing: .04em; }
+.a-ba__tag--l { left: 12px; }
+.a-ba__tag--r { right: 12px; }
+.a-ba__note { margin: 10px 2px 0; font-size: 13px; color: var(--c-ink-soft, #a5a9b0); }
+
+@media (prefers-reduced-motion: reduce) {
+  .s-hero .s-eyebrow, .s-hero h1, .s-hero .s-lead, .s-hero .s-ticks li,
+  .s-hero .s-rating, .s-hero .s-hero__photo, .s-hero__widget { animation: none; }
+  .a-rv { opacity: 1; transform: none; transition: none; }
+  .s-photos figure img { transition: none; }
+}
